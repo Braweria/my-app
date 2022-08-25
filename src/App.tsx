@@ -1,5 +1,7 @@
 import "./App.css";
+import { PetDisplay } from "./PetDisplay";
 import { User } from "./User";
+import { useStore } from "./zustand/store";
 
 function App() {
   return (
@@ -13,7 +15,8 @@ function App() {
         >
           Visit site with query parameter
         </a>
-        <User name="" favouritePet="dog" />
+        <User name="" />
+        <PetDisplay />
       </header>
     </div>
   );

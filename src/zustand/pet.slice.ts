@@ -15,14 +15,14 @@ export type PetActions = {
 export type PetSlice = {
   pet: {
     isLoading: boolean;
-    data: any;
+    data: string;
   };
 } & PetActions;
 
 export const createPetSlice: StateCreator<PetSlice> = (set, get) => ({
   pet: {
     isLoading: false,
-    data: null,
+    data: "",
   },
   fetchPets: async (url) => {
     set((state) => ({
@@ -33,21 +33,14 @@ export const createPetSlice: StateCreator<PetSlice> = (set, get) => ({
       },
     }));
     const response = await fetch(url);
-    const data = response.json();
+    const data = response.url;
     set((state) => ({
       ...state,
       pet: {
         ...state.pet,
         isLoading: false,
-        data: {
-          ...state.pet.data,
-          ...data,
-        },
+        data,
       },
     }));
   },
-  // setPet: (pets) => {
-  //   set((state) => ({ ...state, pets: { ...state.pet, data: { ...pets } } }));
-  // },
 });
-

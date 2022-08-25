@@ -1,20 +1,15 @@
-import { PetsValues, PETS } from "./zustand/pet.slice";
+import { FavouritePetButton } from "./FavouritePetButton";
 import { useStore } from "./zustand/store";
 
 type UserProps = {
   name: string;
-  favouritePet: PetsValues;
 };
 
-export const User = ({ name, favouritePet }: UserProps) => {
+export const User = ({ name }: UserProps) => {
   const setFavouritePet = useStore((state) => state.setFavouritePet);
 
   function onChangeName(name: string) {
     // setter
-  }
-
-  function onChangePet(pet: PetsValues) {
-    setFavouritePet(pet);
   }
 
   return (
@@ -31,22 +26,7 @@ export const User = ({ name, favouritePet }: UserProps) => {
             justifyContent: "space-between",
           }}
         >
-          <button
-            style={{
-              backgroundColor: favouritePet === PETS.CAT ? "green" : "salmon",
-            }}
-            onClick={() => onChangePet("cat")}
-          >
-            Cat
-          </button>
-          <button
-            style={{
-              backgroundColor: favouritePet === PETS.DOG ? "green" : "salmon",
-            }}
-            onClick={() => onChangePet("dog")}
-          >
-            Dog
-          </button>
+          <FavouritePetButton />
         </div>
       </fieldset>
     </div>
