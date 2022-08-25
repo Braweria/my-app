@@ -6,16 +6,23 @@ type UserProps = {
 };
 
 export const User = ({ name }: UserProps) => {
-  const setFavouritePet = useStore((state) => state.setFavouritePet);
+  const userName = useStore((state) => state.user.data.name);
+  const setUser = useStore((state) => state.setUser);
 
   function onChangeName(name: string) {
-    // setter
+    setUser({ name });
   }
 
   return (
     <div>
-      <p>Hello User</p>
-      <input type="text" name="name" placeholder="Your Name" />
+      <p>Hello {userName ?? ""}</p>
+      <input
+        type="text"
+        name="name"
+        placeholder="Your Name"
+        value={userName ?? ""}
+        onChange={(event) => onChangeName(event.target.value)}
+      />
       <br />
       <fieldset>
         <legend>Your favourite pet</legend>

@@ -14,33 +14,12 @@ export const useStore = create<Store>(
   }))
 );
 
-// export const useStore = create<Store>(
-//   subscribeWithSelector(() => (...utils) => ({
-//     ...createPetSlice(...utils),
-//     ...createUserSlice(...utils),
-//   }))
-// );
-
-// export const unscubribeFavouritePet = useStore.subscribe(
-//   (state) => {
-//     console.log("I got changed", state);
-
-//     const url =
-//       state.user.data.favouritePet === PETS.DOG
-//         ? "https://placedog.net/500"
-//         : "http://placekitten.com/500/500";
-
-//     state.fetchPets(url);
-//   },
-//   (state) => state.user.data.favouritePet
-// );
-
 export const unscubscribeFavouritePet = useStore.subscribe(
   (state) => [state.fetchPets, state.user.data.favouritePet],
   ([fetchPets, favouritePet]) => {
     const url =
       favouritePet === PETS.DOG
-        ? "https://placedog.net/500"
+        ? "https://placedog.net/500/500"
         : "http://placekitten.com/500/500";
 
     fetchPets(url);

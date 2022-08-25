@@ -1,14 +1,15 @@
 import { StateCreator } from "zustand";
-import { PETS, PetsValues } from "./pet.slice";
+import { PetsValues } from "./pet.slice";
 
 type User = {
   name: string;
-  favouritePet: PetsValues;
+  favouritePet: PetsValues | "";
 };
 
 export type UserActions = {
-  setUser: (user: User) => void;
+  setUser: (user: Partial<User>) => void;
   setFavouritePet: (favouritePet: PetsValues) => void;
+  queryUser: () => void;
 };
 
 export type UserSlice = {
@@ -23,11 +24,11 @@ export const createUserSlice: StateCreator<UserSlice> = (set, get) => ({
     isLoading: false,
     data: {
       name: "",
-      favouritePet: PETS.DOG,
+      favouritePet: "",
     },
   },
   setUser: (user) => {
-    set((state) => ({ ...state, user: { ...state.user, data: { ...user } } }));
+    set((state) => ({ ...state, user: { ...state.user, data: { ...state.user.data, ...user } } }));
   },
   setFavouritePet: (favouritePet) => {
     console.log("setter", favouritePet);
@@ -35,5 +36,17 @@ export const createUserSlice: StateCreator<UserSlice> = (set, get) => ({
       ...state,
       user: { ...state.user, data: { ...state.user.data, favouritePet } },
     }));
+  },
+  queryUser: () => {
+    const queryString = window.location.search;
+    if (queryString) {
+      const parameters = new URLSearchParams(queryString);
+      const user = { name: "", favouritePet: "" };
+      // @ts-ignore
+      for (const [key, value] of parameters) {
+        user[key as keyof User] = value;
+      }
+      get().setUser(user as User);
+    }
   },
 });
