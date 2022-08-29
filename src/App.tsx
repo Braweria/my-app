@@ -5,14 +5,14 @@ import { User } from "./User";
 import { useStore } from "./zustand/store";
 
 function App() {
-  const queryUser = useStore((state) => state.queryUser);
-  const init = () => {
-    queryUser();
-  };
+  // const queryUser = useStore((state) => state.queryUser);
+  // const init = () => {
+  //   queryUser();
+  // };
 
-  useEffect(() => {
-    init();
-  }, []);
+  // useEffect(() => {
+  //   init();
+  // }, []);
 
   return (
     <div className="App">

@@ -14,6 +14,15 @@ export const useStore = create<Store>(
   }))
 );
 
+export const unsubInit = useStore.subscribe(
+  (state) => [state.queryUser],
+  ([queryUser]) => {
+    console.log("init function!");
+    queryUser();
+  },
+  { fireImmediately: true }
+);
+
 export const unscubscribeFavouritePet = useStore.subscribe(
   (state) => [state.fetchPets, state.user.data.favouritePet],
   ([fetchPets, favouritePet]) => {
